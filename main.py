@@ -15,6 +15,7 @@ def analyze_pattern(theta, af_mag):
     af_norm = af_mag / np.max(af_mag)
     af_db = 20 * np.log10(af_norm + 1e-12) 
     
+    # --- SLL LOGIC ---
     peaks, _ = find_peaks(af_norm)
     if len(peaks) > 0:
         peak_values_db = af_db[peaks]
@@ -117,9 +118,9 @@ class AntennaApp:
             
             # Generate Dolph-Chebyshev window targeted for -30 dB sidelobes
             w = windows.chebwin(N, at=30)
-            w = w / np.max(w) # Normalize so the center element is 1
+            w = w / np.max(w) # Normalize
             
-            # Format to 3 decimal places so it fits nicely in the text box
+            # Format to 3 decimal places
             mags = ", ".join([f"{x:.3f}" for x in w])
             
             self.entry_mag.delete(0, tk.END)
@@ -157,7 +158,6 @@ class AntennaApp:
             fig, ax = plt.subplots(subplot_kw={'projection': 'polar'}, figsize=(6, 6))
             ax.plot(theta, np.clip(af_db, -40, 0), color='blue', linewidth=1.5)
             
-            # Optional: Draw a red dashed line indicating the SLL limit
             if sll is not None:
                 ax.plot(theta, np.full_like(theta, sll), color='red', linestyle='--', linewidth=0.8, alpha=0.7)
 
