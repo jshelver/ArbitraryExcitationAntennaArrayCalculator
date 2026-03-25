@@ -163,9 +163,13 @@ class AntennaApp:
 
             ax.set_theta_zero_location("N")
             ax.set_theta_direction(-1)
+
             ax.set_rticks([-10, -20, -30, -40])
+            ax.set_yticklabels(['-10 dB', '-20 dB', '-30 dB', '-40 dB']) # Add dB text
+            ax.set_rlabel_position(0) # Move labels to the straight-up (0 degree) line
             ax.set_rmin(-40) 
             ax.set_rmax(0)
+            
             ax.set_title(f"Array Factor (N={N}, d={d_lambda}λ)", va='bottom')
             plt.tight_layout()
             plt.show()
